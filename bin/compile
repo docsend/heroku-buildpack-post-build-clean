@@ -26,6 +26,11 @@ while read file; do
   elif [[ -d "${file}" ]]; then
     echo "Removing directory ${file} from slug"
     rm -rf ${file}
+  elif [[ ${file} = *"*"* ]]; then
+    for resolved_file in ${file}; do
+      echo "Removing file ${resolved_file} from slug based on glob ${file}"
+      rm -f ${file}
+    done
   else
     echo "Location ${file} not found - ignoring"
   fi
